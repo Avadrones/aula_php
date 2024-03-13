@@ -77,6 +77,7 @@ elseif($operador == "dividir") {
                     <div class="mb-3">
                         <button onclick="limparForm()" class="btn btn-danger" type="button">Limpar</a>
                         <button class="btn btn-primary" type="submit">Calcular</button>
+                        
                     </div>
                 </form>
             </div>
