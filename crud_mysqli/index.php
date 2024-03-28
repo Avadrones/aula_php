@@ -10,30 +10,26 @@
 </head>
 
 <body>
-
-
-
     <div class="container">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">
                         Lista de Clientes
-                        <button class="btn btn-primary btn-sm float-end">
+                        <a href="form.php" class="btn btn-primary btn-sm float-end">
                             <i class="bi bi-plus-circle"></i> Novo
-                        </button>
+                            </a>
                     </div>
                     <div class="card-body">
                         <table class=" table  table hover align-middle">
                             <thead class="table-dark">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th class="text-center">ID</th>
-                                        <th class="text-center">Cliente</th>
-                                        <th class="text-center">CPF</th>
-                                        <th class="text-center">Opções</th>
-                                    </tr>
-                                </thead>
+                                <tr>
+                                    <th class="text-center">ID</th>
+                                    <th>Cliente</th>
+                                    <th class="text-center">CPF</th>
+                                    <th class="text-center">Opções</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <?php
                                 include('../conexao_mysqli.php');
@@ -42,59 +38,44 @@
                                 FROM clientes
                                 ORDER BY nome
                                 ";
-                                 $query = mysqli_query($conn, $sql);
-                                 
-                                 // VERIFICAR SE ENCONTROU REGISTROS NO MYSQL
-                                 if (mysqli_num_rows($query) > 0) {
+                                $query = mysqli_query($conn, $sql);
+
+                                // VERIFICAR SE ENCONTROU REGISTROS NO MYSQL
+                                if (mysqli_num_rows($query) > 0) {
                                     // LAÇO DE REPETIÇÃO PARA LISTAR ITEM A ITEM
-                                    while($row = mysqli_fetch_object($query)) {
-                                        echo'
-                                        <tr>
-                                        <td class= "text-center"></td>
-                                        
+                                    while ($row = mysqli_fetch_object($query)) {
+                                        echo '
+                                            <tr>
+                                            <td class="text-center">' . $row->pk_cliente . '</td>
+                                            <td>' . $row->nome . '</td>
+                                            <td class="text-center">' . $row->cpf . '</td>
+                                            <td class="text-center">
+                                            <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-gear"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="form.php?ref='.base64_encode($row->pk_cliente).'"><i class="bi bi-pencil"></i> Editar</a></li>
+                                                <li>
+                                                <a class="dropdown-item"
+                                                onclick="
+                                                if(confirm(\'Deseja realmente remover este registro?\')) {
+                                                    window.Location=\'remover.php?ref='.base64_encode($row->pk_cliente).'\'
+                                                }
+                                                "
+                                                href="#">
+                                                <i class="bi bi-trash"></i> Remover
+                                                </a>
+                                            </ul>
+                                        </div>
+                                            </td>
+                                            </tr>
+                                        ';
                                     }
-                                 }
-                                 <tr>
-                                <tr>
-                                    <td class="text-center">1</td>
-                                    <td class="text-center">Caetano</td>
-                                    <td class="text-center">
-                                        Manutenção de micro<br>
-                                        Configuração de roteador
-                                    </td>
-                                    <td class="text-center">R$ 500,00</td>
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-gear"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Editar</a></li>
-                                                <li><a class="dropdown-item" href="#"><i class="bi bi-trash"></i> Remover</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">2</td>
-                                    <td class="text-center">Caetano Barros</td>
-                                    <td class="text-center">
-                                        Instalação de Software
-                                    </td>
-                                    <td class="text-center">R$ 500,00</td>
-                                    <td class="text-center">
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-gear"></i>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Editar</a></li>
-                                                <li><a class="dropdown-item" href="#"><i class="bi bi-trash"></i> Remover</a></li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
+                                }
+                                ?>
                             </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
