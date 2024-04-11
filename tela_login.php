@@ -15,7 +15,7 @@ body, .container, .row {
     <div class="container">
         <div class="row justify-content-center align-content-center">
             <div class="col-4">
-                <form method="post">
+                <form method="post" action="validar-login.php">
                     <div class="card">
                         <div class="card-header">
                             Tela Login

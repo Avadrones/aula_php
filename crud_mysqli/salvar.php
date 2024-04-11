@@ -40,9 +40,22 @@ INSERT INTO clientes (nome, cpf, whatsapp, email) VALUES
 ";
     }
 
-
-    // ENVIAR A SINTAXE SQL AO MYSQL
-    $query = mysqli_query($conn, $sql);
+try {
+ // ENVIAR A SINTAXE SQL AO MYSQL
+ $query = mysqli_query($conn, $sql);
+} catch (Exception $e) {
+    if (mysqli_errno($conn) == 1062) {
+        $msg = "Campo CPF, E-mail e/ou whatsapp já cadastrado.";
+    }
+    echo "
+    <script>
+    alert('$msg');
+    window.location='./';
+    </script>
+    ";
+    exit;
+}
+   
 
     // VERIFICA SE CADASTROU CORRETAMENTE
     if ($query) {
